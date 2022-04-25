@@ -1,5 +1,5 @@
 import Head from 'next/head'
-
+import Sidebar from '../components/sidebar/sidebar'
 const Home = () => {
   return (
     <div className="">
@@ -7,10 +7,12 @@ const Home = () => {
         <title>Next Twitter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="">
+      
+      <main className="bg-[#E1E8ED] flex min-h-screen max-w-[1500px] mx-auto">
+        <Sidebar/>
       </main>
-      <footer className="">
-      </footer>
+      
+    
     </div>
   )
 }
