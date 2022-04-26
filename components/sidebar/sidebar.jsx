@@ -29,8 +29,8 @@ const Sidebar = () => {
             <SideBarLink title="More" Icon={DotsCircleHorizontalIcon}/>
         </div>
         <button className="hidden xl:inline ml-auto bg-[#1DA1F2] text-[#E1E8ED] rounded-full w-56 h-[52px] text-lg font-bold shadow-md hover:scale-105 transition duration-150 ease-in-out active:scale-100"> Tweet </button>
-        <div className="flex space-x-2 justify-center items-center ml-auto mt-auto mb-4 xl:mr-[-3rem]">
-            <img src="https://lh3.googleusercontent.com/a-/AOh14Gh9vEBt-jQgy2DU644UKBt-aWnjHnahOqtqieiKLw=s288-p-no" alt="profile" className="h-10 w-10 rounded-full xl:mr-2"/>
+        <div className="flex space-x-2 justify-center items-center ml-auto mt-auto mb-4 xl:mr-[-2rem]">
+            <img src="https://picsum.photos/id/237/200/300" alt="profile" className="h-10 w-10 rounded-full xl:mr-2 sm:mr-2"/>
             <div className="hidden xl:inline leading-5  text-[#657786]">
                 <a href="google.com" className="font-bold">@Bandzyrka</a>
                 <p>werstaptor@gmail.com</p>

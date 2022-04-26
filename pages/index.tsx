@@ -9,7 +9,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <main className="bg-[#E1E8ED] flex min-h-screen max-w-[1500px] mx-auto">
+      <main className="bg-[#F5F8FA] flex min-h-screen max-w-[1500px] mx-auto">
         <Sidebar/>
         <Feed />
       </main>
