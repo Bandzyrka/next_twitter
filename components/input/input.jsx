@@ -1,13 +1,24 @@
 import { ChartBarIcon,PhotographIcon, EmojiHappyIcon, GiftIcon, XIcon } from '@heroicons/react/outline'
 import React, { useState, useRef } from 'react'
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart'
 
 const Input = () => {
   const [input, setInput] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const filePickRef = useRef(null)
-
+  const [emojiPicker, setEmojiPicker] = useState(false)
+  
+  const addEmoji = (e) => {
+    let sym = e.unified.split("-");
+    let codesArray = [];
+    sym.forEach((el) => codesArray.push("0x" + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setInput(input + emoji);
+  };
+  
   return (
-    <div className="flex space-x-3 overflow-y-hidden border-b border-[#E1E8ED] p-3">
+    <div className="flex space-x-3 overflow-y-hidden border-b-8 border-[#E1E8ED] p-3">
       <img
         src="https://picsum.photos/id/237/200/300"
         alt="profile"
@@ -46,19 +57,33 @@ const Input = () => {
               <PhotographIcon className="h-[28px] text-[#1DA1F2]" />
               <input type="file" hidden onChange={(event) => setSelectedFile(event.target.files[0])} ref={filePickRef} />
             </div>
+            <div className="icon" onClick={() => setEmojiPicker(!emojiPicker)} >
+              <EmojiHappyIcon className="h-[28px] text-[#1DA1F2]" />
+      
+              </div>
             <div className="icon">
               <GiftIcon className="h-[28px] text-[#1DA1F2]" />
             </div>
             <div className="icon">
-              <ChartBarIcon className="h-[28px] text-[#1DA1F2]" />
-            </div>
-            <div className="icon">
-              <EmojiHappyIcon className="h-[28px] text-[#1DA1F2]" />
-            </div>
+              <ChartBarIcon className="h-[28px] text-[#1DA1F2] rotate-90" />
+            </div>    
           </div>
+          <button className="ml-auto hidden h-12 w-28 rounded-full bg-[#1DA1F2] text-lg font-bold text-[#E1E8ED] shadow-md transition duration-150 ease-in-out hover:scale-105 active:scale-100 xl:inline">
+      {' '}
+      Tweet{' '}
+    </button>
         </div>
+        {emojiPicker && (
+          <div className="absolute">
+            <Picker style={{borderRadius: '20px', maxWidth: '310px'}}
+              onSelect={(event) => addEmoji(event)}
+            />
+          </div>
+        )}  
       </div>
-    </div>
+    
+      </div>
+    
   )
 }
 

@@ -8,7 +8,6 @@ const Feed = () => {
             <h2 className="font-bold text-2xl">Home</h2>
             <SparklesIcon className="h-7 text-[#1DA1F2]"/>
         </div>
-    
     <Input />
     </div>
   )
