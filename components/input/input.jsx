@@ -2,12 +2,16 @@ import { ChartBarIcon,PhotographIcon, EmojiHappyIcon, GiftIcon, XIcon } from '@h
 import React, { useState, useRef } from 'react'
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
+import { db, storage } from '../../firebase'
+import { addDoc, collection, serverTimestamp, updateDoc, doc } from "firebase/firestore"; 
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 
 const Input = () => {
   const [input, setInput] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const filePickRef = useRef(null)
   const [emojiPicker, setEmojiPicker] = useState(false)
+  const [loading, setLoading] = useState(false)
   
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
@@ -17,6 +21,29 @@ const Input = () => {
     setInput(input + emoji);
   };
   
+  const sendPost = async () => {
+    if(loading) return;
+    setLoading(true)
+    
+    const docRef = await addDoc(collection(db, "posts"),{
+      text: input,
+      timestamp: serverTimestamp()
+    })
+    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+  
+    if (selectedFile) {
+      await uploadString(imageRef, selectedFile).then(async () => {
+        const downloadURL = await getDownloadURL(imageRef);
+        await updateDoc(doc(db, "posts", docRef.id), {
+          image: downloadURL,
+        });
+      });
+    }
+    setLoading(false);
+    setInput("");
+    setSelectedFile(null);
+    setEmojiPicker(false);
+  }
   return (
     <div className="flex space-x-3 overflow-y-hidden border-b-8 border-[#E1E8ED] p-3">
       <img
@@ -68,7 +95,11 @@ const Input = () => {
               <ChartBarIcon className="h-[28px] text-[#1DA1F2] rotate-90" />
             </div>    
           </div>
-          <button className="ml-auto hidden h-12 w-28 rounded-full bg-[#1DA1F2] text-lg font-bold text-[#E1E8ED] shadow-md transition duration-150 ease-in-out hover:scale-105 active:scale-100 xl:inline">
+          <button 
+            disabled={!/[a-zA-Z]|ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]+/g.test(input)} 
+            className="ml-auto disabled:opacity-50 hidden h-12 w-28 rounded-full bg-[#1DA1F2] text-lg font-bold text-[#E1E8ED] shadow-md transition duration-150 ease-in-out hover:scale-105 active:scale-100 xl:inline"
+            onClick={() => sendPost()}
+            >
       {' '}
       Tweet{' '}
     </button>
@@ -79,7 +110,7 @@ const Input = () => {
               onSelect={(event) => addEmoji(event)}
             />
           </div>
-        )}  
+        )}
       </div>
     
       </div>
