@@ -1,8 +1,10 @@
 import React from 'react'
 import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import { SearchIcon, UserGroupIcon, ChatIcon } from '@heroicons/react/solid'
 const Login = ({providers}) => {
+console.log(useSession());
   return (
     <div className="w-screen h-screen flex">
         <div className="flex-1 h-full flex items-center justify-center bg-left bg-[url('http://1000logos.net/wp-content/uploads/2017/06/Twitter-Logo.png')] bg-no-repeat bg-[#25aafc]">

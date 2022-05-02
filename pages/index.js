@@ -8,10 +8,13 @@ import { getProviders, getSession, useSession } from "next-auth/react";
 
 export default function Home({providers}){
   const { data: session } = useSession();
-  if(!session) return <Login providers={providers} />; 
+  console.log(useSession());
+  if (!session) return <Login providers={providers} />;
+
   return (
     <div className="">
       <Head>
+      
         <title>Next Twitter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -23,13 +26,14 @@ export default function Home({providers}){
   )
 }
 
-export async function getServerSideProps(context){
-  const providers = await getProviders()
-  const session = await getSession()
-    return {
-      props: {
-        providers,
-        session,
-      }
-    }
+export async function getServerSideProps(context) {
+  const providers = await getProviders();
+  const session = await getSession(context);
+
+  return {
+    props: {
+      providers,
+      session,
+    },
+  };
 }
