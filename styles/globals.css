@@ -16,3 +16,6 @@
         @apply cursor-pointer flex items-center justify-center w-9 h-9 hover:scale-105 active:scale-95 transition ease-in-out;
     }
 }
+
+.swing-in-top-fwd{animation:swing-in-top-fwd .5s cubic-bezier(.175,.885,.32,1.275) both}
+ @keyframes swing-in-top-fwd{0%{transform:rotateX(-100deg);transform-origin:top;opacity:0}100%{transform:rotateX(0deg);transform-origin:top;opacity:1}}

@@ -5,6 +5,7 @@ import { Picker } from 'emoji-mart'
 import { db, storage } from '../../firebase'
 import { addDoc, collection, serverTimestamp, updateDoc, doc } from "firebase/firestore"; 
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
+import { useSession } from "next-auth/react";
 
 const Input = () => {
   const [input, setInput] = useState('')
@@ -12,7 +13,8 @@ const Input = () => {
   const filePickRef = useRef(null)
   const [emojiPicker, setEmojiPicker] = useState(false)
   const [loading, setLoading] = useState(false)
-  
+  const { data: {user: {name, tag, image, uid}} } = useSession();
+
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
     let codesArray = [];
@@ -26,6 +28,10 @@ const Input = () => {
     setLoading(true)
     
     const docRef = await addDoc(collection(db, "posts"),{
+      id: uid,
+      username: name,
+      userImg: image,
+      tag: tag,
       text: input,
       timestamp: serverTimestamp()
     })
@@ -58,7 +64,7 @@ const Input = () => {
     <>
     {!loading ? <div className="flex space-x-3 overflow-y-hidden border-b-8 border-[#E1E8ED] p-3">
       <img
-        src="https://picsum.photos/id/237/200/300"
+        src={image}
         alt="profile"
         className="h-11 w-11 cursor-pointer rounded-full"
       />

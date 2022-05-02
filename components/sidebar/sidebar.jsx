@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image'
 import SideBarLink from '../sidebar-link/sidebar-link'
+import { signOut, useSession } from "next-auth/react";
 
 import {
   HashtagIcon,
@@ -14,6 +15,8 @@ import {
 } from '@heroicons/react/outline'
 import { HomeIcon } from '@heroicons/react/solid'
 const Sidebar = () => {
+  const { data: {user: {name, tag, image}} } = useSession();
+  const [options, setOptions] = useState(false)
   return (
     <div className="fixed hidden h-full flex-col items-center p-2 sm:flex xl:w-[340px] xl:items-start">
       <div className="hoverAnimation flex h-14 w-14 items-center justify-center p-0 xl:ml-24">
@@ -37,19 +40,26 @@ const Sidebar = () => {
         {' '}
         Tweet{' '}
       </button>
-      <div className="ml-auto mt-auto mb-4 flex items-center justify-center space-x-2 xl:mr-[-2rem]">
+      <div className="ml-auto mt-auto mb-4 flex items-center justify-center hoverAnimation p-0">
         <img
-          src="https://picsum.photos/id/237/200/300"
+          src={image}
           alt="profile"
           className="h-10 w-10 rounded-full sm:mr-2 xl:mr-2"
         />
         <div className="hidden leading-5 text-[#657786]  xl:inline">
-          <a href="google.com" className="font-bold">
-            @Bandzyrka
-          </a>
-          <p>werstaptor@gmail.com</p>
+          <p className="font-bold">
+            {name}
+          </p>
+          <p>
+            @{tag}
+          </p>
         </div>
-        <DotsHorizontalIcon className="ml-10 hidden h-5 xl:inline" />
+        <div>
+        <DotsHorizontalIcon onClick={() => setOptions(!options)}className="ml-10 hidden h-5 sm:block sm:absolute sm:right-7 sm:bottom-1 xl:inline xl:static cursor-pointer" />
+        {options && <div className="bg-white border-2 w-16 h-14 flex flex-col items-center justify-start absolute bottom-2 xl:left-[340px] sm:left-[80px] swing-in-top-fwd">
+        <p onClick={signOut}className="text-red-600 hover:text-black">Logout</p>
+        </div>}
+        </div>
       </div>
     </div>
   )

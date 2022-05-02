@@ -12,7 +12,6 @@ export default function Home({providers}){
   return (
     <div className="">
       <Head>
-      
         <title>Next Twitter</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
