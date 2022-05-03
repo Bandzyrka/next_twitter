@@ -24,9 +24,11 @@ const Feed = () => {
             <SparklesIcon className="h-7 text-[#1DA1F2]"/>
         </div>
     <Input />
-    <div>
+    <div className="p-3 space-y-4">
     {
-      posts.map((post) =>(<Post />))
+      posts.map((post) =>(
+          <Post key={post.id} id={post.id} post={post.data()} />
+        ))
     }
     </div>
     </div>
