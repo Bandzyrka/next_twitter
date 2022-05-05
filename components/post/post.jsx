@@ -2,7 +2,7 @@ import { ChatIcon, HeartIcon, SaveIcon, ShareIcon, DotsHorizontalIcon} from '@he
 import { HeartIcon as HeartIconFilled} from '@heroicons/react/solid';
 import { db } from '../../firebase';
 import React, {useState, useEffect} from 'react'
-import { getProviders, getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import {
   collection,
   deleteDoc,
@@ -17,7 +17,9 @@ const Post = ({post, id}) => {
   const {image, tag, text, timestamp, userImg, username} = post
   const [isLiked, setIsLiked] = useState(false)
   const [likes, setLikes] = useState([])
+  const [comments, setComments] = useState([])
   const { data: session } = useSession();
+
 
   const likePost = async () => {
     if(isLiked){
@@ -73,7 +75,10 @@ const Post = ({post, id}) => {
       </div>
       </div>
       <div className="flex justify-between items-center p-4 ml-8 text-[#657786]">
-          <ChatIcon className="h-7"/>
+          <div className="flex items-center justify-center">
+            <ChatIcon className="h-7"/>
+            <p className={`text-xl ${comments.length === 0 ? "text-white": "flex"}`}>{comments.length}</p>
+          </div>
           <div className="flex items-center justify-center">
           {
             isLiked ?
@@ -87,7 +92,7 @@ const Post = ({post, id}) => {
                 onClick={likePost}
               />
           }
-          <p className={`text-xl ${likes.length === 0 ? "text-white": "flex"}`}>{likes.length}</p>
+            <p className={`text-xl ${likes.length === 0 ? "text-white": "flex"}`}>{likes.length}</p>
           </div>
           <ShareIcon className="h-7"/>
           <SaveIcon className="h-7"/>
