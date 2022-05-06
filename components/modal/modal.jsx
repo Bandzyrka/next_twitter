@@ -1,14 +1,32 @@
-import { useState } from 'react'
+import React ,{ useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ChartBarIcon,PhotographIcon, EmojiHappyIcon, GiftIcon, XIcon, DotsHorizontalIcon } from '@heroicons/react/outline'
 import {modalState} from '../../atoms/ModalAtom'
 import { useRecoilState } from 'recoil';
 import {postState} from '../../atoms/ModalAtom'
-
+import { db } from '../../firebase';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from "@firebase/firestore";
 const Modal = () => {
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [input, setInput] = useState('')
   const [postID, setPostID] = useRecoilState(postState)
+  const [post, setPost] = useState()
+  useEffect(
+    () =>
+      onSnapshot(doc(db, "posts", postID), (snapshot) => {
+        setPost(snapshot.data());
+      }),
+    [db]
+  );
+ 
   return (
     <Transition
       show={isOpen}
@@ -32,31 +50,30 @@ const Modal = () => {
             className="h-7"
             onClick={() => setIsOpen(false)}
             />
-            {postID}
           </Dialog.Title>
           <div className="bg-[#F5F8FA] shadow-2xl rounded-xl w-full h-auto flex flex-col">
             <div className="flex w-full px-10 py-5  ">
               <div className="flex w-full">
                 <img
-                  src={"https://lh3.googleusercontent.com/a-/AOh14Gh9vEBt-jQgy2DU644UKBt-aWnjHnahOqtqieiKLw=s96-c"}
+                  src={post?.userImg}
                   alt="profile"
                   className="h-11 w-11 cursor-pointer rounded-full"
                 />
                 <div className="flex flex-col w-full">
                   <div className="flex ml-2 w-full justify-between items-center">
                     <div className="flex">
-                      <h3 className="font-bold text-black">bandzyrka</h3>
-                      <p className="text-[#657786] ml-2">@bandzyrka</p>
+                      <h3 className="font-bold text-black">{post?.username}</h3>
+                      <p className="text-[#657786] ml-2">{post?.tag}</p>
                     </div>
                   </div>
                   <div className="ml-2">
                     <p className="text-black">
-                      text
+                      {post?.text}
                     </p>
                   </div>
                   <div>
                   {
-                  // image && <img src={image} alt="0" className="max-h-80 rounded-2xl object-contain mt-4"/>
+                  post?.image && <img src={post?.image} alt="0" className="max-h-80 rounded-2xl object-contain mt-4"/>
                   }
                   </div>
                 </div>
