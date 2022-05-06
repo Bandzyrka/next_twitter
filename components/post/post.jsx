@@ -3,6 +3,9 @@ import { HeartIcon as HeartIconFilled} from '@heroicons/react/solid';
 import { db } from '../../firebase';
 import React, {useState, useEffect} from 'react'
 import { useSession } from "next-auth/react";
+import {modalState} from '../../atoms/ModalAtom'
+import {postState} from '../../atoms/ModalAtom'
+import { useRecoilState } from 'recoil';
 import {
   collection,
   deleteDoc,
@@ -19,7 +22,8 @@ const Post = ({post, id}) => {
   const [likes, setLikes] = useState([])
   const [comments, setComments] = useState([])
   const { data: session } = useSession();
-
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const [postID, setPostID] = useRecoilState(postState);
 
   const likePost = async () => {
     if(isLiked){
@@ -76,7 +80,10 @@ const Post = ({post, id}) => {
       </div>
       <div className="flex justify-between items-center p-4 ml-8 text-[#657786]">
           <div className="flex items-center justify-center">
-            <ChatIcon className="h-7"/>
+            <ChatIcon className="h-7" onClick={() => {
+            setIsOpen(true)
+            setPostID(id)}}
+            />
             <p className={`text-xl ${comments.length === 0 ? "text-white": "flex"}`}>{comments.length}</p>
           </div>
           <div className="flex items-center justify-center">

@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ChartBarIcon,PhotographIcon, EmojiHappyIcon, GiftIcon, XIcon, DotsHorizontalIcon } from '@heroicons/react/outline'
+import {modalState} from '../../atoms/ModalAtom'
+import { useRecoilState } from 'recoil';
+import {postState} from '../../atoms/ModalAtom'
 
-function Modal() {
-  let [isOpen, setIsOpen] = useState(true)
+const Modal = () => {
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [input, setInput] = useState('')
-
+  const [postID, setPostID] = useRecoilState(postState)
   return (
     <Transition
       show={isOpen}
@@ -24,7 +27,13 @@ function Modal() {
       <div class="fixed inset-0 bg-black/60" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="w-full max-w-xl rounded-xl shadow-2xl bg-[#F5F8FA]">
-          <Dialog.Title className="text-black p-2"><XIcon className="h-7"/></Dialog.Title>
+          <Dialog.Title className="text-black p-2">
+            <XIcon 
+            className="h-7"
+            onClick={() => setIsOpen(false)}
+            />
+            {postID}
+          </Dialog.Title>
           <div className="bg-[#F5F8FA] shadow-2xl rounded-xl w-full h-auto flex flex-col">
             <div className="flex w-full px-10 py-5  ">
               <div className="flex w-full">
