@@ -19,6 +19,8 @@ const Modal = () => {
   const [input, setInput] = useState('')
   const [postID, setPostID] = useRecoilState(postState)
   const [post, setPost] = useState()
+  const [comment, setComment] = useState("");``
+  const { data: session } = useSession();
   useEffect(
     () =>
       onSnapshot(doc(db, "posts", postID), (snapshot) => {
@@ -26,7 +28,22 @@ const Modal = () => {
       }),
     [db]
   );
- 
+  const sendComment = async (e) => {
+    e.preventDefault();
+
+    await addDoc(collection(db, "posts", postID, "comments"), {
+      comment: comment,
+      username: session.user.name,
+      tag: session.user.tag,
+      userImg: session.user.image,
+      timestamp: serverTimestamp(),
+    });
+
+    setIsOpen(false);
+    setComment("");
+
+    router.push(`/${postID}`);
+  };
   return (
     <Transition
       show={isOpen}
@@ -107,7 +124,9 @@ const Modal = () => {
                 <div className="icon">
                   <ChartBarIcon className="h-[22px] text-[#1da0f2d4] rotate-90" />
                 </div> 
-                <button className="ml-auto disabled:opacity-50 h-8 w-20 rounded-full bg-[#1DA1F2] text-sm font-bold text-[#E1E8ED] shadow-md transition duration-150 ease-in-out hover:scale-105 active:scale-100 xl:inline">
+                <button 
+                  onClick={sendComment}
+                  className="ml-auto disabled:opacity-50 h-8 w-20 rounded-full bg-[#1DA1F2] text-sm font-bold text-[#E1E8ED] shadow-md transition duration-150 ease-in-out hover:scale-105 active:scale-100 xl:inline">
                   {' '}
                   Reply{' '}
                 </button>
