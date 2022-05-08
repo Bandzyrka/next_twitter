@@ -4,6 +4,7 @@ import Input from '../input/input'
 import { onSnapshot, collection, query, orderBy } from "@firebase/firestore";
 import {db} from '../../firebase'
 import Post from '../post/post'
+
 const Feed = () => {
   const [posts, setPosts] = useState([])
   useEffect(

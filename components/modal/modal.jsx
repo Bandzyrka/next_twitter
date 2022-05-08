@@ -4,23 +4,23 @@ import { ChartBarIcon,PhotographIcon, EmojiHappyIcon, GiftIcon, XIcon, DotsHoriz
 import {modalState} from '../../atoms/ModalAtom'
 import { useRecoilState } from 'recoil';
 import {postState} from '../../atoms/ModalAtom'
+import { useSession } from "next-auth/react";
 import { db } from '../../firebase';
 import {
   collection,
-  deleteDoc,
+  addDoc,
   doc,
   onSnapshot,
-  orderBy,
-  query,
-  setDoc,
+  serverTimestamp
 } from "@firebase/firestore";
+
 const Modal = () => {
   const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const [input, setInput] = useState('')
   const [postID, setPostID] = useRecoilState(postState)
   const [post, setPost] = useState()
-  const [comment, setComment] = useState("");``
+  const [comment, setComment] = useState("");
   const { data: session } = useSession();
+  
   useEffect(
     () =>
       onSnapshot(doc(db, "posts", postID), (snapshot) => {
@@ -28,6 +28,7 @@ const Modal = () => {
       }),
     [db]
   );
+  
   const sendComment = async (e) => {
     e.preventDefault();
 
@@ -42,7 +43,7 @@ const Modal = () => {
     setIsOpen(false);
     setComment("");
 
-    router.push(`/${postID}`);
+    // router.push(`/${postID}`);
   };
   return (
     <Transition
@@ -103,11 +104,11 @@ const Modal = () => {
                 className="h-11 w-11 cursor-pointer rounded-full"
                 />
                 <textarea
-                value={input}
+                value={comment}
                 rows="1"
                 className="min-h-[44px] w-full bg-transparent text-lg tracking-wide text-gray-800 outline-none p-2"
                 placeholder="Tweet your reply?"
-                onChange={(event) => setInput(event.target.value)}
+                onChange={(event) => setComment(event.target.value)}
               />
             </div>
             <div>
