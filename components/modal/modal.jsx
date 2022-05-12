@@ -6,6 +6,8 @@ import { useRecoilState } from 'recoil';
 import {postState} from '../../atoms/ModalAtom'
 import { useSession } from "next-auth/react";
 import { db } from '../../firebase';
+import { useRouter } from 'next/router'
+
 import {
   collection,
   addDoc,
@@ -20,6 +22,8 @@ const Modal = () => {
   const [post, setPost] = useState()
   const [comment, setComment] = useState("");
   const { data: session } = useSession();
+  const router = useRouter()
+
   
   useEffect(
     () =>
@@ -42,8 +46,7 @@ const Modal = () => {
 
     setIsOpen(false);
     setComment("");
-
-    // router.push(`/${postID}`);
+    router.push(`/${postID}`);
   };
   return (
     <Transition
