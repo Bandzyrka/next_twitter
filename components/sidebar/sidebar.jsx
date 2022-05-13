@@ -14,6 +14,7 @@ import {
   DotsHorizontalIcon,
 } from '@heroicons/react/outline'
 import { HomeIcon } from '@heroicons/react/solid'
+
 const Sidebar = () => {
   const { data: {user: {name, tag, image}} } = useSession();
   const [options, setOptions] = useState(false)
