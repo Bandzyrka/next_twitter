@@ -9,7 +9,7 @@ import React from 'react'
 import {modalState} from '../atoms/ModalAtom'
 import { useRecoilState } from 'recoil';
 
-export default function Home({providers, news}){
+export default function Home({providers, news, followResults}){
   const { data: session } = useSession();
   if (!session) return <Login providers={providers} />;
   const [isOpen, setIsOpen] = useRecoilState(modalState);
@@ -23,8 +23,9 @@ export default function Home({providers, news}){
       <main className="bg-[#F5F8FA] flex min-h-screen max-w-[1500px] mx-auto">
         <Sidebar/>
         <Feed />
-        <Widgets news={news}/>
-        {isOpen && <Modal />}
+        <Widgets news={news} followResults={followResults}
+        />
+        
       </main>
     </div>
   )
@@ -41,11 +42,15 @@ export async function getServerSideProps(context) {
   const news = await fetch(url).then(
     (res) => res.json()
   );
+  const followResults = await fetch("https://jsonkeeper.com/b/WWMJ").then(
+    (res) => res.json()
+  );
   return {
     props: {
       providers,
       session,
-      news
+      news,
+      followResults
     },
   };
 }
