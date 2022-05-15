@@ -116,7 +116,7 @@ function Post({ id, post, postPage }) {
               <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>
             {!postPage && (
-              <p className="text-[#1283f5] text-[15px] sm:text-base mt-0.5">
+              <p className="text-[#14171A] text-[15px] sm:text-base mt-0.5">
                 {post?.text}
               </p>
             )}
