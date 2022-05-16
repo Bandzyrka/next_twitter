@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { SearchIcon, UserGroupIcon, ChatIcon } from '@heroicons/react/solid'
 const Login = ({providers}) => {
   return (
-    <div className="w-screen h-screen flex">
+    <div className="w-screen h-screen flex md:flex-row flex-col">
         <div className="flex-1 h-full flex items-center justify-center bg-left bg-[url('http://1000logos.net/wp-content/uploads/2017/06/Twitter-Logo.png')] bg-no-repeat bg-[#25aafc]">
             <div className="flex flex-col">
                 <div className="m-4 flex items-center">
