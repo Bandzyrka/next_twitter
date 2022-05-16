@@ -64,7 +64,7 @@ import {
                 className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0"
                 onClick={() => router.push("/")}
               >
-                <ArrowLeftIcon className="h-5 text-white" />
+                <ArrowLeftIcon className="h-5 text-black" />
               </div>
               Tweet
             </div>

@@ -4,7 +4,6 @@ import Image from "next/image";
 
 
 const Widgets = ({news: {articles}, followResults}) => {
-  console.log(articles)
   return (
     <div className="hidden h-full flex-col items-center p-2 md:w-[640px] md:flex xl:items-start">
         <input 
@@ -15,7 +14,7 @@ const Widgets = ({news: {articles}, followResults}) => {
         <div className="bg-[#F5F8FA] shadow-lg h-auto p-4 mt-4 rounded-xl w-11/12">
             <h1 className="font-bold text-lg text-[#14171A] mb-4">What's happening?</h1>
             {articles.map(article =>(
-                <div className="flex w-full p-2 sm:flex-col xl:flex-row">
+                <div key={article.title} className="flex w-full p-2 sm:flex-col xl:flex-row">
                     <div className="flex flex-col">
                         <h3 className="text-[#657786] text-sm font-bold">
                           Trending in US
@@ -48,7 +47,7 @@ const Widgets = ({news: {articles}, followResults}) => {
               </h4>
               <h5 className="text-[#657786] text-[15px]">{result.tag}</h5>
             </div>
-            <button className="ml-auto bg-white text-black rounded-full font-bold text-sm py-1.5 px-3.5 hover:text-[#1DA1F2]">
+            <button className="ml-auto bg-black text-white rounded-full font-bold text-sm py-1.5 px-3.5 hover:text-[#1DA1F2]">
               Follow
             </button>
           </div>

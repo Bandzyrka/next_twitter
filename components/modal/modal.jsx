@@ -130,6 +130,7 @@ const Modal = () => {
                 </div> 
                 <button 
                   onClick={sendComment}
+                  disabled={!comment.trim()}
                   className="ml-auto disabled:opacity-50 h-8 w-20 rounded-full bg-[#1DA1F2] text-sm font-bold text-[#E1E8ED] shadow-md transition duration-150 ease-in-out hover:scale-105 active:scale-100 xl:inline">
                   {' '}
                   Reply{' '}

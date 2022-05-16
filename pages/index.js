@@ -25,7 +25,7 @@ export default function Home({providers, news, followResults}){
         <Feed />
         <Widgets news={news} followResults={followResults}
         />
-        
+        {isOpen && <Modal />}
       </main>
     </div>
   )
