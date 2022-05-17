@@ -1,23 +1,36 @@
-# Next.js + Tailwind CSS Example
+<p align="center"><img src="https://socialify.git.ci/Bandzyrka/next_twitter/image?description=1&amp;descriptionEditable=&amp;font=Inter&amp;language=1&amp;owner=1&amp;theme=Dark" alt="project-image"></p>
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+<h2>🚀 Demo</h2>
 
-## Deploy your own
+[https://next-twitter-five.vercel.app](https://next-twitter-five.vercel.app)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+<h2>Project Screenshots:</h2>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+<img src="https://i.postimg.cc/RVC8B8J1/obraz-2022-05-17-224456982.png" alt="project-screenshot" width="700" height="400/">
 
-## How to use
+<img src="https://i.postimg.cc/HL04jYfr/obraz-2022-05-17-224633593.png" alt="project-screenshot" width="700" height="400/">
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+  
+  
+<h2>🧐 Features</h2>
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app -- --example with-tailwindcss with-tailwindcss-app
-```
+Here're some of the project's best features:
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+*   User Authentication
+*   Modal
+*   Recoil state managment
+*   Firebase database
+*   Emoji picker
+*   Comments likes adding posts with images
+
+  
+  
+<h2>💻 Built with</h2>
+
+Technologies used in the project:
+
+*   React
+*   NextJS
+*   Recoil
+*   emoji-mart
+*   tailwind css
